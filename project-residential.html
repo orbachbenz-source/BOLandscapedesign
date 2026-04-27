@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Residential Backyard — BOLD</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --sage:#8A9E7B; --sage-light:#C4D4BA; --stone:#E8E3DC;
+    --bark:#3D3530; --bark-light:#6B5E57; --cream:#F5F2EE;
+    --white:#FAFAF8; --accent:#5C7A4E;
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family:'DM Sans',sans-serif; background:var(--white); color:var(--bark); overflow-x:hidden; }
+
+  nav { position:fixed; top:0; left:0; right:0; z-index:100; display:flex; align-items:center; justify-content:space-between; padding:1.4rem 4rem; background:rgba(250,250,248,0.92); backdrop-filter:blur(12px); border-bottom:1px solid rgba(61,53,48,0.08); transition:padding 0.3s; }
+  .nav-logo { font-family:'Cormorant Garamond',serif; font-size:1.55rem; font-weight:600; letter-spacing:0.18em; color:var(--bark); text-decoration:none; }
+  .nav-logo .green { color:var(--accent); }
+  .nav-links { display:flex; gap:2.8rem; list-style:none; }
+  .nav-links a { font-size:0.78rem; font-weight:400; letter-spacing:0.12em; text-transform:uppercase; color:var(--bark-light); text-decoration:none; position:relative; transition:color 0.25s; }
+  .nav-links a::after { content:''; position:absolute; bottom:-3px; left:0; right:0; height:1px; background:var(--accent); transform:scaleX(0); transform-origin:left; transition:transform 0.3s ease; }
+  .nav-links a:hover { color:var(--accent); }
+  .nav-links a:hover::after { transform:scaleX(1); }
+
+  /* Hero — warmer, lighter green palette for residential */
+  .proj-hero { height:80vh; min-height:520px; display:flex; align-items:flex-end; padding:4rem; position:relative; overflow:hidden;
+    background: radial-gradient(ellipse at 70% 30%, rgba(138,158,123,0.6) 0%, transparent 50%), radial-gradient(ellipse at 20% 70%, rgba(92,122,78,0.4) 0%, transparent 55%), linear-gradient(120deg,#8fa882 0%,#c8d9be 50%,#e8e3dc 100%); }
+  .proj-hero::after { content:''; position:absolute; inset:0; background:linear-gradient(to top,rgba(28,23,19,0.72) 0%,rgba(28,23,19,0.06) 55%,transparent 100%); }
+  .proj-hero-bg { position:absolute; inset:0; opacity:0.1; pointer-events:none; }
+  .proj-hero-content { position:relative; z-index:2; opacity:0; animation:fadeUp 0.85s 0.15s forwards; }
+  .back-link { display:inline-flex; align-items:center; gap:0.5rem; font-size:0.7rem; letter-spacing:0.16em; text-transform:uppercase; color:rgba(255,255,255,0.65); text-decoration:none; margin-bottom:2rem; transition:color 0.2s; }
+  .back-link:hover { color:var(--sage-light); }
+  .proj-eyebrow { font-size:0.66rem; letter-spacing:0.24em; text-transform:uppercase; color:var(--sage-light); margin-bottom:0.7rem; }
+  .proj-title { font-family:'Cormorant Garamond',serif; font-size:clamp(3rem,5.5vw,5rem); font-weight:300; color:var(--white); line-height:1.0; margin-bottom:1.4rem; }
+  .proj-title em { font-style:italic; color:var(--sage-light); }
+  .proj-meta { display:flex; gap:3rem; flex-wrap:wrap; }
+  .meta-pill { display:flex; flex-direction:column; gap:0.2rem; }
+  .meta-label { font-size:0.58rem; letter-spacing:0.2em; text-transform:uppercase; color:rgba(255,255,255,0.45); }
+  .meta-value { font-size:0.84rem; color:rgba(255,255,255,0.9); }
+
+  .proj-body { max-width:1160px; margin:0 auto; padding:6rem 4rem 4rem; }
+
+  .proj-overview { display:grid; grid-template-columns:1fr 2fr; gap:5rem; padding-bottom:5.5rem; margin-bottom:5.5rem; border-bottom:1px solid rgba(61,53,48,0.1); }
+  .ov-label { font-size:0.63rem; letter-spacing:0.22em; text-transform:uppercase; color:var(--sage); margin-bottom:0.6rem; }
+  .ov-title { font-family:'Cormorant Garamond',serif; font-size:1.9rem; font-weight:300; line-height:1.2; color:var(--bark); margin-bottom:2rem; }
+  .ov-title em { font-style:italic; color:var(--accent); }
+  .ov-facts { display:flex; flex-direction:column; gap:1.1rem; }
+  .fact-row { display:flex; flex-direction:column; gap:0.18rem; }
+  .fact-lbl { font-size:0.58rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--sage); }
+  .fact-val { font-size:0.86rem; color:var(--bark); }
+  .ov-text p { font-size:0.95rem; line-height:1.9; color:var(--bark-light); margin-bottom:1.3rem; }
+  .ov-text p:last-child { margin-bottom:0; }
+
+  .img-section { margin-bottom:5rem; }
+  .img-section-title { font-family:'Cormorant Garamond',serif; font-size:1.35rem; font-weight:300; color:var(--bark); margin-bottom:1.6rem; }
+  .img-section-title em { font-style:italic; color:var(--accent); }
+  .g2col { display:grid; grid-template-columns:1fr 1fr; gap:0.75rem; margin-bottom:0.75rem; }
+  .g3col { display:grid; grid-template-columns:1fr 1fr 1fr; gap:0.75rem; margin-bottom:0.75rem; }
+  .g1col { display:grid; grid-template-columns:1fr; margin-bottom:0.75rem; }
+
+  .ph { position:relative; overflow:hidden; background:var(--stone); }
+  .ph img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block; }
+  .ph.wide { aspect-ratio:16/9; } .ph.tall { aspect-ratio:3/4; } .ph.sq { aspect-ratio:1/1; } .ph.cinema { aspect-ratio:21/9; }
+  .c1 { background:linear-gradient(135deg,#8fa882 0%,#c8d9be 60%,#e8e3dc 100%); }
+  .c2 { background:linear-gradient(200deg,#7a9b6d 0%,#c4d4ba 100%); }
+  .c3 { background:linear-gradient(60deg,#a3bb96 0%,#dce8d6 100%); }
+  .c4 { background:linear-gradient(170deg,#8fa882 0%,#e8e3dc 100%); }
+  .c5 { background:linear-gradient(110deg,#6B8F5E 0%,#c4d4ba 100%); }
+  .c6 { background:linear-gradient(230deg,#8fa882 0%,#dce8d6 100%); }
+  .ph-cap { position:absolute; bottom:0; left:0; right:0; padding:0.55rem 0.85rem; background:rgba(28,23,19,0.45); font-size:0.58rem; letter-spacing:0.14em; text-transform:uppercase; color:rgba(255,255,255,0.6); }
+
+  .divider-line { height:1px; background:linear-gradient(to right,transparent,rgba(61,53,48,0.15),transparent); }
+
+  #contact { background:var(--bark); color:var(--cream); display:grid; grid-template-columns:1fr 1fr; gap:5rem; align-items:center; padding:7rem 4rem; }
+  .section-label { font-size:0.7rem; letter-spacing:0.22em; text-transform:uppercase; color:var(--sage); margin-bottom:0.8rem; }
+  .section-title { font-family:'Cormorant Garamond',serif; font-size:clamp(2rem,3.5vw,3rem); font-weight:300; line-height:1.15; margin-bottom:1.5rem; }
+  .section-title em { font-style:italic; }
+  #contact .section-label { color:var(--sage-light); }
+  #contact .section-title { color:var(--cream); }
+  #contact .section-title em { color:var(--sage-light); }
+  .contact-intro { font-size:0.95rem; line-height:1.8; color:rgba(232,227,220,0.7); margin-bottom:2.5rem; }
+  .contact-detail { display:flex; flex-direction:column; gap:1.2rem; }
+  .contact-item { display:flex; gap:1.2rem; align-items:flex-start; }
+  .contact-item-label { font-size:0.65rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--sage); min-width:4.5rem; padding-top:0.15rem; }
+  .contact-item-value { font-size:0.9rem; color:var(--cream); text-decoration:none; transition:color 0.25s; }
+  a.contact-item-value:hover { color:var(--sage-light); }
+  .contact-form { display:flex; flex-direction:column; gap:1.2rem; }
+  .form-group { display:flex; flex-direction:column; gap:0.4rem; }
+  .form-label { font-size:0.65rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--sage); }
+  .form-input,.form-textarea { background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.12); padding:0.85rem 1rem; color:var(--cream); font-family:'DM Sans',sans-serif; font-size:0.9rem; outline:none; transition:border-color 0.25s; width:100%; }
+  .form-input:focus,.form-textarea:focus { border-color:var(--sage); }
+  .form-textarea { resize:vertical; min-height:120px; }
+  .form-input::placeholder,.form-textarea::placeholder { color:rgba(232,227,220,0.3); }
+  .btn-submit { align-self:flex-start; padding:0.9rem 2.4rem; background:var(--sage); color:var(--white); font-family:'DM Sans',sans-serif; font-size:0.78rem; letter-spacing:0.12em; text-transform:uppercase; border:none; cursor:pointer; transition:background 0.25s,transform 0.2s; }
+  .btn-submit:hover { background:var(--accent); transform:translateY(-1px); }
+
+  footer { background:var(--bark); border-top:1px solid rgba(255,255,255,0.06); padding:2rem 4rem; display:flex; align-items:center; justify-content:space-between; color:rgba(232,227,220,0.4); font-size:0.75rem; letter-spacing:0.05em; }
+  footer .footer-logo { font-family:'Cormorant Garamond',serif; font-size:1rem; letter-spacing:0.2em; color:rgba(232,227,220,0.5); }
+
+  @keyframes fadeUp { from{opacity:0;transform:translateY(22px)} to{opacity:1;transform:translateY(0)} }
+  .reveal { opacity:0; transform:translateY(26px); transition:opacity 0.7s ease,transform 0.7s ease; }
+  .reveal.visible { opacity:1; transform:translateY(0); }
+
+  @media(max-width:860px){
+    nav{padding:1.1rem 1.5rem;} .nav-links{gap:1.6rem;}
+    .proj-hero{padding:2rem 1.5rem 3rem; height:auto; min-height:65vw;}
+    .proj-body{padding:4rem 1.5rem 3rem;}
+    .proj-overview{grid-template-columns:1fr; gap:2.5rem;}
+    .g2col,.g3col{grid-template-columns:1fr;}
+    #contact{grid-template-columns:1fr; gap:3rem; padding:5rem 1.5rem;}
+    footer{flex-direction:column; gap:0.7rem; text-align:center; padding:2rem 1.5rem;}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">BO<span class="green">LD</span></a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="index.html#portfolio">Portfolio</a></li>
+    <li><a href="index.html#about">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<div class="proj-hero">
+  <svg class="proj-hero-bg" viewBox="0 0 1400 800" xmlns="http://www.w3.org/2000/svg" fill="none">
+    <!-- Floor plan–style grid overlay -->
+    <rect x="120" y="100" width="240" height="160" rx="2" stroke="#3D3530" stroke-width="1"/>
+    <rect x="420" y="220" width="360" height="240" rx="2" stroke="#3D3530" stroke-width="1"/>
+    <rect x="840" y="120" width="200" height="140" rx="2" stroke="#3D3530" stroke-width="1"/>
+    <rect x="1080" y="340" width="260" height="180" rx="2" stroke="#3D3530" stroke-width="1"/>
+    <rect x="240" y="440" width="180" height="260" rx="2" stroke="#3D3530" stroke-width="1"/>
+    <line x1="240" y1="260" x2="240" y2="440" stroke="#3D3530" stroke-width="0.6"/>
+    <line x1="600" y1="460" x2="600" y2="800" stroke="#3D3530" stroke-width="0.6"/>
+    <line x1="840" y1="260" x2="840" y2="340" stroke="#3D3530" stroke-width="0.6"/>
+  </svg>
+  <div class="proj-hero-content">
+    <a href="index.html#portfolio" class="back-link">← Back to Portfolio</a>
+    <p class="proj-eyebrow">Project 02 — Residential Design</p>
+    <h1 class="proj-title">Residential<br><em>Backyard</em></h1>
+    <div class="proj-meta">
+      <div class="meta-pill"><span class="meta-label">Type</span><span class="meta-value">Residential Garden</span></div>
+      <div class="meta-pill"><span class="meta-label">Programme</span><span class="meta-value">Private Backyard</span></div>
+      <div class="meta-pill"><span class="meta-label">Focus</span><span class="meta-value">Planting Design · Outdoor Living</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="proj-body">
+
+  <div class="proj-overview reveal">
+    <div>
+      <p class="ov-label">Overview</p>
+      <h2 class="ov-title">A garden built for <em>living</em></h2>
+      <div class="ov-facts">
+        <div class="fact-row"><span class="fact-lbl">Project Type</span><span class="fact-val">Residential Garden</span></div>
+        <div class="fact-row"><span class="fact-lbl">Programme</span><span class="fact-val">Private Backyard</span></div>
+        <div class="fact-row"><span class="fact-lbl">Approach</span><span class="fact-val">Planting Design · Spatial Planning</span></div>
+      </div>
+    </div>
+    <div class="ov-text">
+      <p>This residential backyard project centres on transforming an underutilised outdoor space into a layered, functional garden that feels like a natural extension of the home. The design establishes a clear hierarchy of spaces — from a paved entertaining terrace to a softly planted transition zone, leading to a wilder, more naturalistic rear garden.</p>
+      <p>The planting plan is structured around seasonal interest and textural variety, using a mix of perennials, ornamental grasses, and woody shrubs to create year-round character. Attention was paid to privacy screening, shade provision, and low-maintenance management.</p>
+      <p><em>Replace this paragraph with your own project description — client goals, design process, site constraints, and key outcomes.</em></p>
+    </div>
+  </div>
+
+  <div class="img-section reveal">
+    <h3 class="img-section-title">Site &amp; <em>Existing Conditions</em></h3>
+    <div class="g2col">
+      <div class="ph wide c3"><div class="ph-cap">Existing site — before</div></div>
+      <div class="ph wide c1"><div class="ph-cap">Context photo</div></div>
+    </div>
+  </div>
+
+  <div class="img-section reveal">
+    <h3 class="img-section-title">Design <em>Drawings</em></h3>
+    <div class="g1col">
+      <div class="ph cinema c2"><div class="ph-cap">Landscape plan</div></div>
+    </div>
+    <div class="g2col">
+      <div class="ph wide c5"><div class="ph-cap">Planting plan</div></div>
+      <div class="ph wide c4"><div class="ph-cap">Section / elevation</div></div>
+    </div>
+  </div>
+
+  <div class="img-section reveal">
+    <h3 class="img-section-title">Details &amp; <em>Materiality</em></h3>
+    <div class="g3col">
+      <div class="ph sq c6"><div class="ph-cap">Paving detail</div></div>
+      <div class="ph sq c2"><div class="ph-cap">Planting detail</div></div>
+      <div class="ph sq c4"><div class="ph-cap">Perspective / rendering</div></div>
+    </div>
+  </div>
+
+</div>
+
+<div class="divider-line"></div>
+
+<section id="contact">
+  <div class="reveal">
+    <p class="section-label">Contact</p>
+    <h2 class="section-title">Let's work<br><em>together</em></h2>
+    <p class="contact-intro">Whether you have a project in mind or just want to talk through ideas, I'd love to hear from you.</p>
+    <div class="contact-detail">
+      <div class="contact-item"><span class="contact-item-label">Email</span><a href="mailto:ben@boldlandscape.ca" class="contact-item-value">ben@boldlandscape.ca</a></div>
+      <div class="contact-item"><span class="contact-item-label">Based</span><span class="contact-item-value">Canada</span></div>
+      <div class="contact-item"><span class="contact-item-label">Practice</span><span class="contact-item-value">BOLD — Ben Orbach Landscape Design</span></div>
+    </div>
+  </div>
+  <form class="contact-form reveal" onsubmit="handleSubmit(event)">
+    <div class="form-group"><label class="form-label">Name</label><input type="text" class="form-input" placeholder="Your name"></div>
+    <div class="form-group"><label class="form-label">Email</label><input type="email" class="form-input" placeholder="your@email.com"></div>
+    <div class="form-group"><label class="form-label">Project / Enquiry</label><textarea class="form-textarea" placeholder="Tell me about your project or question…"></textarea></div>
+    <button type="submit" class="btn-submit">Send Message</button>
+  </form>
+</section>
+
+<footer>
+  <span class="footer-logo">BOLD</span>
+  <span>© 2025 Ben Orbach Landscape Design · All rights reserved</span>
+  <span>BLA Candidate · Independent Designer</span>
+</footer>
+
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e,i) => { if(e.isIntersecting){ setTimeout(()=>e.target.classList.add('visible'),i*80); io.unobserve(e.target); } });
+  }, {threshold:0.1});
+  reveals.forEach(el=>io.observe(el));
+  const nav = document.querySelector('nav');
+  window.addEventListener('scroll',()=>{ nav.style.padding = window.scrollY>60?'1rem 4rem':'1.4rem 4rem'; });
+  function handleSubmit(e){ e.preventDefault(); const btn=e.target.querySelector('.btn-submit'); btn.textContent='Sent ✓'; btn.style.background='#5C7A4E'; btn.disabled=true; setTimeout(()=>{ btn.textContent='Send Message'; btn.style.background=''; btn.disabled=false; e.target.reset(); },3000); }
+</script>
+</body>
+</html>

@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Design Competition Garden — BOLD</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --sage:#8A9E7B; --sage-light:#C4D4BA; --stone:#E8E3DC;
+    --bark:#3D3530; --bark-light:#6B5E57; --cream:#F5F2EE;
+    --white:#FAFAF8; --accent:#5C7A4E;
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family:'DM Sans',sans-serif; background:var(--white); color:var(--bark); overflow-x:hidden; }
+
+  nav { position:fixed; top:0; left:0; right:0; z-index:100; display:flex; align-items:center; justify-content:space-between; padding:1.4rem 4rem; background:rgba(250,250,248,0.92); backdrop-filter:blur(12px); border-bottom:1px solid rgba(61,53,48,0.08); transition:padding 0.3s; }
+  .nav-logo { font-family:'Cormorant Garamond',serif; font-size:1.55rem; font-weight:600; letter-spacing:0.18em; color:var(--bark); text-decoration:none; }
+  .nav-logo .green { color:var(--accent); }
+  .nav-links { display:flex; gap:2.8rem; list-style:none; }
+  .nav-links a { font-size:0.78rem; font-weight:400; letter-spacing:0.12em; text-transform:uppercase; color:var(--bark-light); text-decoration:none; position:relative; transition:color 0.25s; }
+  .nav-links a::after { content:''; position:absolute; bottom:-3px; left:0; right:0; height:1px; background:var(--accent); transform:scaleX(0); transform-origin:left; transition:transform 0.3s ease; }
+  .nav-links a:hover { color:var(--accent); }
+  .nav-links a:hover::after { transform:scaleX(1); }
+
+  /* Hero — deepest, most dramatic palette for competition */
+  .proj-hero { height:80vh; min-height:520px; display:flex; align-items:flex-end; padding:4rem; position:relative; overflow:hidden;
+    background: radial-gradient(ellipse at 50% 75%, rgba(40,34,28,0.45) 0%, transparent 55%), radial-gradient(ellipse at 80% 20%, rgba(92,122,78,0.5) 0%, transparent 50%), linear-gradient(175deg,#4a6a3e 0%,#7aab6c 40%,#aac89a 75%,#cddfc5 100%); }
+  .proj-hero::after { content:''; position:absolute; inset:0; background:linear-gradient(to top,rgba(22,18,14,0.82) 0%,rgba(22,18,14,0.08) 55%,transparent 100%); }
+  .proj-hero-bg { position:absolute; inset:0; opacity:0.13; pointer-events:none; }
+  .proj-hero-content { position:relative; z-index:2; opacity:0; animation:fadeUp 0.85s 0.15s forwards; }
+  .back-link { display:inline-flex; align-items:center; gap:0.5rem; font-size:0.7rem; letter-spacing:0.16em; text-transform:uppercase; color:rgba(255,255,255,0.65); text-decoration:none; margin-bottom:2rem; transition:color 0.2s; }
+  .back-link:hover { color:var(--sage-light); }
+  .proj-eyebrow { font-size:0.66rem; letter-spacing:0.24em; text-transform:uppercase; color:var(--sage-light); margin-bottom:0.7rem; }
+  .proj-title { font-family:'Cormorant Garamond',serif; font-size:clamp(3rem,5.5vw,5rem); font-weight:300; color:var(--white); line-height:1.0; margin-bottom:1.4rem; }
+  .proj-title em { font-style:italic; color:var(--sage-light); }
+  .proj-meta { display:flex; gap:3rem; flex-wrap:wrap; }
+  .meta-pill { display:flex; flex-direction:column; gap:0.2rem; }
+  .meta-label { font-size:0.58rem; letter-spacing:0.2em; text-transform:uppercase; color:rgba(255,255,255,0.45); }
+  .meta-value { font-size:0.84rem; color:rgba(255,255,255,0.9); }
+
+  .proj-body { max-width:1160px; margin:0 auto; padding:6rem 4rem 4rem; }
+
+  .proj-overview { display:grid; grid-template-columns:1fr 2fr; gap:5rem; padding-bottom:5.5rem; margin-bottom:5.5rem; border-bottom:1px solid rgba(61,53,48,0.1); }
+  .ov-label { font-size:0.63rem; letter-spacing:0.22em; text-transform:uppercase; color:var(--sage); margin-bottom:0.6rem; }
+  .ov-title { font-family:'Cormorant Garamond',serif; font-size:1.9rem; font-weight:300; line-height:1.2; color:var(--bark); margin-bottom:2rem; }
+  .ov-title em { font-style:italic; color:var(--accent); }
+  .ov-facts { display:flex; flex-direction:column; gap:1.1rem; }
+  .fact-row { display:flex; flex-direction:column; gap:0.18rem; }
+  .fact-lbl { font-size:0.58rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--sage); }
+  .fact-val { font-size:0.86rem; color:var(--bark); }
+  .ov-text p { font-size:0.95rem; line-height:1.9; color:var(--bark-light); margin-bottom:1.3rem; }
+  .ov-text p:last-child { margin-bottom:0; }
+
+  /* Design concept pull-quote — unique to competition page */
+  .concept-block { background:var(--cream); border-left:3px solid var(--accent); padding:2.5rem 3rem; margin-bottom:5rem; }
+  .concept-tag { font-size:0.6rem; letter-spacing:0.22em; text-transform:uppercase; color:var(--sage); margin-bottom:1rem; }
+  .concept-quote { font-family:'Cormorant Garamond',serif; font-size:clamp(1.4rem,2.4vw,2rem); font-style:italic; font-weight:300; line-height:1.5; color:var(--bark); }
+
+  .img-section { margin-bottom:5rem; }
+  .img-section-title { font-family:'Cormorant Garamond',serif; font-size:1.35rem; font-weight:300; color:var(--bark); margin-bottom:1.6rem; }
+  .img-section-title em { font-style:italic; color:var(--accent); }
+  .g2col { display:grid; grid-template-columns:1fr 1fr; gap:0.75rem; margin-bottom:0.75rem; }
+  .g3col { display:grid; grid-template-columns:1fr 1fr 1fr; gap:0.75rem; margin-bottom:0.75rem; }
+  .g1col { display:grid; grid-template-columns:1fr; margin-bottom:0.75rem; }
+
+  .ph { position:relative; overflow:hidden; background:var(--stone); }
+  .ph img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block; }
+  .ph.wide { aspect-ratio:16/9; } .ph.tall { aspect-ratio:3/4; } .ph.sq { aspect-ratio:1/1; } .ph.cinema { aspect-ratio:21/9; }
+  .c1 { background:linear-gradient(140deg,#4a6a3e 0%,#7aab6c 50%,#b0ceA0 100%); }
+  .c2 { background:linear-gradient(200deg,#3D5436 0%,#7a9b6d 60%,#c4d4ba 100%); }
+  .c3 { background:linear-gradient(60deg,#4a6a3e 0%,#8A9E7B 50%,#c4d4ba 100%); }
+  .c4 { background:linear-gradient(170deg,#5C7A4E 0%,#a3bb96 100%); }
+  .c5 { background:linear-gradient(110deg,#3D5436 0%,#8A9E7B 100%); }
+  .c6 { background:linear-gradient(230deg,#6b8f5e 0%,#dce8d6 100%); }
+  .ph-cap { position:absolute; bottom:0; left:0; right:0; padding:0.55rem 0.85rem; background:rgba(22,18,14,0.5); font-size:0.58rem; letter-spacing:0.14em; text-transform:uppercase; color:rgba(255,255,255,0.6); }
+
+  .divider-line { height:1px; background:linear-gradient(to right,transparent,rgba(61,53,48,0.15),transparent); }
+
+  #contact { background:var(--bark); color:var(--cream); display:grid; grid-template-columns:1fr 1fr; gap:5rem; align-items:center; padding:7rem 4rem; }
+  .section-label { font-size:0.7rem; letter-spacing:0.22em; text-transform:uppercase; color:var(--sage); margin-bottom:0.8rem; }
+  .section-title { font-family:'Cormorant Garamond',serif; font-size:clamp(2rem,3.5vw,3rem); font-weight:300; line-height:1.15; margin-bottom:1.5rem; }
+  .section-title em { font-style:italic; }
+  #contact .section-label { color:var(--sage-light); }
+  #contact .section-title { color:var(--cream); }
+  #contact .section-title em { color:var(--sage-light); }
+  .contact-intro { font-size:0.95rem; line-height:1.8; color:rgba(232,227,220,0.7); margin-bottom:2.5rem; }
+  .contact-detail { display:flex; flex-direction:column; gap:1.2rem; }
+  .contact-item { display:flex; gap:1.2rem; align-items:flex-start; }
+  .contact-item-label { font-size:0.65rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--sage); min-width:4.5rem; padding-top:0.15rem; }
+  .contact-item-value { font-size:0.9rem; color:var(--cream); text-decoration:none; transition:color 0.25s; }
+  a.contact-item-value:hover { color:var(--sage-light); }
+  .contact-form { display:flex; flex-direction:column; gap:1.2rem; }
+  .form-group { display:flex; flex-direction:column; gap:0.4rem; }
+  .form-label { font-size:0.65rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--sage); }
+  .form-input,.form-textarea { background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.12); padding:0.85rem 1rem; color:var(--cream); font-family:'DM Sans',sans-serif; font-size:0.9rem; outline:none; transition:border-color 0.25s; width:100%; }
+  .form-input:focus,.form-textarea:focus { border-color:var(--sage); }
+  .form-textarea { resize:vertical; min-height:120px; }
+  .form-input::placeholder,.form-textarea::placeholder { color:rgba(232,227,220,0.3); }
+  .btn-submit { align-self:flex-start; padding:0.9rem 2.4rem; background:var(--sage); color:var(--white); font-family:'DM Sans',sans-serif; font-size:0.78rem; letter-spacing:0.12em; text-transform:uppercase; border:none; cursor:pointer; transition:background 0.25s,transform 0.2s; }
+  .btn-submit:hover { background:var(--accent); transform:translateY(-1px); }
+
+  footer { background:var(--bark); border-top:1px solid rgba(255,255,255,0.06); padding:2rem 4rem; display:flex; align-items:center; justify-content:space-between; color:rgba(232,227,220,0.4); font-size:0.75rem; letter-spacing:0.05em; }
+  footer .footer-logo { font-family:'Cormorant Garamond',serif; font-size:1rem; letter-spacing:0.2em; color:rgba(232,227,220,0.5); }
+
+  @keyframes fadeUp { from{opacity:0;transform:translateY(22px)} to{opacity:1;transform:translateY(0)} }
+  .reveal { opacity:0; transform:translateY(26px); transition:opacity 0.7s ease,transform 0.7s ease; }
+  .reveal.visible { opacity:1; transform:translateY(0); }
+
+  @media(max-width:860px){
+    nav{padding:1.1rem 1.5rem;} .nav-links{gap:1.6rem;}
+    .proj-hero{padding:2rem 1.5rem 3rem; height:auto; min-height:65vw;}
+    .proj-body{padding:4rem 1.5rem 3rem;}
+    .proj-overview{grid-template-columns:1fr; gap:2.5rem;}
+    .concept-block{padding:1.8rem 1.5rem;}
+    .g2col,.g3col{grid-template-columns:1fr;}
+    #contact{grid-template-columns:1fr; gap:3rem; padding:5rem 1.5rem;}
+    footer{flex-direction:column; gap:0.7rem; text-align:center; padding:2rem 1.5rem;}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">BO<span class="green">LD</span></a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="index.html#portfolio">Portfolio</a></li>
+    <li><a href="index.html#about">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<div class="proj-hero">
+  <svg class="proj-hero-bg" viewBox="0 0 1400 800" xmlns="http://www.w3.org/2000/svg" fill="none">
+    <!-- Nested triangles — echoes the competition card pattern -->
+    <polygon points="700,40 1340,780 60,780" stroke="#fff" stroke-width="1"/>
+    <polygon points="700,140 1220,720 180,720" stroke="#fff" stroke-width="1"/>
+    <polygon points="700,240 1100,660 300,660" stroke="#fff" stroke-width="1"/>
+    <polygon points="700,340 980,600 420,600" stroke="#fff" stroke-width="1"/>
+    <polygon points="700,440 860,540 540,540" stroke="#fff" stroke-width="1"/>
+    <line x1="700" y1="40" x2="700" y2="800" stroke="#fff" stroke-width="0.5"/>
+  </svg>
+  <div class="proj-hero-content">
+    <a href="index.html#portfolio" class="back-link">← Back to Portfolio</a>
+    <p class="proj-eyebrow">Project 03 — Conceptual Design</p>
+    <h1 class="proj-title">Design Competition<br><em>Garden</em></h1>
+    <div class="proj-meta">
+      <div class="meta-pill"><span class="meta-label">Type</span><span class="meta-value">Competition Entry</span></div>
+      <div class="meta-pill"><span class="meta-label">Programme</span><span class="meta-value">Designed Garden</span></div>
+      <div class="meta-pill"><span class="meta-label">Focus</span><span class="meta-value">Conceptual · Spatial Design</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="proj-body">
+
+  <div class="proj-overview reveal">
+    <div>
+      <p class="ov-label">Overview</p>
+      <h2 class="ov-title">A garden as <em>argument</em></h2>
+      <div class="ov-facts">
+        <div class="fact-row"><span class="fact-lbl">Project Type</span><span class="fact-val">Competition Entry</span></div>
+        <div class="fact-row"><span class="fact-lbl">Programme</span><span class="fact-val">Designed Garden</span></div>
+        <div class="fact-row"><span class="fact-lbl">Approach</span><span class="fact-val">Conceptual · Speculative Design</span></div>
+      </div>
+    </div>
+    <div class="ov-text">
+      <p>This competition entry explores the garden as a space of structured contemplation — where form, material, and planting are orchestrated to produce a particular quality of experience. The design proposes a series of interrelated spatial episodes, each defined by a shift in enclosure, light, and atmosphere.</p>
+      <p>The concept draws on the tension between geometry and nature: hard edges and soft growth, stillness and movement, overhead canopy and open sky. Material choices are deliberate and restrained — allowing the spatial sequence itself to carry the design concept forward.</p>
+      <p><em>Replace this paragraph with your own competition brief summary, conceptual narrative, and design intentions specific to this entry.</em></p>
+    </div>
+  </div>
+
+  <!-- Design concept pull-quote -->
+  <div class="concept-block reveal">
+    <p class="concept-tag">Design Concept</p>
+    <p class="concept-quote">"Replace this with your own concept statement — the single idea or provocation that drives the garden design."</p>
+  </div>
+
+  <div class="img-section reveal">
+    <h3 class="img-section-title">Concept &amp; <em>Process</em></h3>
+    <div class="g3col">
+      <div class="ph sq c2"><div class="ph-cap">Concept sketch</div></div>
+      <div class="ph sq c5"><div class="ph-cap">Diagram / analysis</div></div>
+      <div class="ph sq c3"><div class="ph-cap">Precedent / reference</div></div>
+    </div>
+  </div>
+
+  <div class="img-section reveal">
+    <h3 class="img-section-title">Design <em>Drawings</em></h3>
+    <div class="g1col">
+      <div class="ph cinema c1"><div class="ph-cap">Garden plan</div></div>
+    </div>
+    <div class="g2col">
+      <div class="ph wide c4"><div class="ph-cap">Section through garden</div></div>
+      <div class="ph wide c6"><div class="ph-cap">Planting / detail plan</div></div>
+    </div>
+  </div>
+
+  <div class="img-section reveal">
+    <h3 class="img-section-title">Atmosphere &amp; <em>Renderings</em></h3>
+    <div class="g2col">
+      <div class="ph tall c1"><div class="ph-cap">Perspective rendering</div></div>
+      <div class="ph tall c3"><div class="ph-cap">Atmospheric rendering</div></div>
+    </div>
+  </div>
+
+</div>
+
+<div class="divider-line"></div>
+
+<section id="contact">
+  <div class="reveal">
+    <p class="section-label">Contact</p>
+    <h2 class="section-title">Let's work<br><em>together</em></h2>
+    <p class="contact-intro">Whether you have a project in mind or just want to talk through ideas, I'd love to hear from you.</p>
+    <div class="contact-detail">
+      <div class="contact-item"><span class="contact-item-label">Email</span><a href="mailto:ben@boldlandscape.ca" class="contact-item-value">ben@boldlandscape.ca</a></div>
+      <div class="contact-item"><span class="contact-item-label">Based</span><span class="contact-item-value">Canada</span></div>
+      <div class="contact-item"><span class="contact-item-label">Practice</span><span class="contact-item-value">BOLD — Ben Orbach Landscape Design</span></div>
+    </div>
+  </div>
+  <form class="contact-form reveal" onsubmit="handleSubmit(event)">
+    <div class="form-group"><label class="form-label">Name</label><input type="text" class="form-input" placeholder="Your name"></div>
+    <div class="form-group"><label class="form-label">Email</label><input type="email" class="form-input" placeholder="your@email.com"></div>
+    <div class="form-group"><label class="form-label">Project / Enquiry</label><textarea class="form-textarea" placeholder="Tell me about your project or question…"></textarea></div>
+    <button type="submit" class="btn-submit">Send Message</button>
+  </form>
+</section>
+
+<footer>
+  <span class="footer-logo">BOLD</span>
+  <span>© 2025 Ben Orbach Landscape Design · All rights reserved</span>
+  <span>BLA Candidate · Independent Designer</span>
+</footer>
+
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e,i) => { if(e.isIntersecting){ setTimeout(()=>e.target.classList.add('visible'),i*80); io.unobserve(e.target); } });
+  }, {threshold:0.1});
+  reveals.forEach(el=>io.observe(el));
+  const nav = document.querySelector('nav');
+  window.addEventListener('scroll',()=>{ nav.style.padding = window.scrollY>60?'1rem 4rem':'1.4rem 4rem'; });
+  function handleSubmit(e){ e.preventDefault(); const btn=e.target.querySelector('.btn-submit'); btn.textContent='Sent ✓'; btn.style.background='#5C7A4E'; btn.disabled=true; setTimeout(()=>{ btn.textContent='Send Message'; btn.style.background=''; btn.disabled=false; e.target.reset(); },3000); }
+</script>
+</body>
+</html>

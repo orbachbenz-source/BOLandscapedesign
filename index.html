@@ -339,6 +339,22 @@
     letter-spacing: 0.1em;
   }
 
+  /* Card is now an <a> — strip link styling */
+  a.project-card { text-decoration: none; display: block; }
+
+  /* Hover CTA badge */
+  .project-cta {
+    position: absolute; top: 1.5rem; right: 1.5rem;
+    font-size: 0.62rem; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--white);
+    background: rgba(92,122,78,0.82);
+    backdrop-filter: blur(4px);
+    padding: 0.35rem 0.8rem;
+    opacity: 0; transform: translateY(-6px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+  .project-card:hover .project-cta { opacity: 1; transform: translateY(0); }
+
   /* Always-visible label at top */
   .project-label {
     position: absolute; top: 1.5rem; left: 1.5rem;
@@ -624,7 +640,7 @@
   <div class="portfolio-grid reveal">
 
     <!-- Card 1: Summer Camp -->
-    <div class="project-card proj1">
+    <a class="project-card proj1" href="project-summer-camp.html">
       <div class="project-visual">
         <div class="project-bg"></div>
         <svg class="project-pattern" viewBox="0 0 400 480" xmlns="http://www.w3.org/2000/svg">
@@ -640,11 +656,12 @@
           <h3 class="project-name">Summer Camp Design</h3>
           <p class="project-type">Recreational Landscape · Site Planning</p>
         </div>
+        <div class="project-cta">View Project →</div>
       </div>
-    </div>
+    </a>
 
     <!-- Card 2: Residential -->
-    <div class="project-card proj2">
+    <a class="project-card proj2" href="project-residential.html">
       <div class="project-visual">
         <div class="project-bg"></div>
         <svg class="project-pattern" viewBox="0 0 200 420" xmlns="http://www.w3.org/2000/svg">
@@ -660,11 +677,12 @@
           <h3 class="project-name">Residential Backyard</h3>
           <p class="project-type">Residential Design · Planting Plan</p>
         </div>
+        <div class="project-cta">View Project →</div>
       </div>
-    </div>
+    </a>
 
     <!-- Card 3: Competition -->
-    <div class="project-card proj3">
+    <a class="project-card proj3" href="project-competition.html">
       <div class="project-visual">
         <div class="project-bg"></div>
         <svg class="project-pattern" viewBox="0 0 400 420" xmlns="http://www.w3.org/2000/svg">
@@ -679,8 +697,9 @@
           <h3 class="project-name">Design Competition Garden</h3>
           <p class="project-type">Conceptual Design · Competition Entry</p>
         </div>
+        <div class="project-cta">View Project →</div>
       </div>
-    </div>
+    </a>
 
   </div>
 </section>
