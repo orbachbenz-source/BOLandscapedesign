@@ -620,7 +620,7 @@
     flex-direction: column;
     justify-content: space-between;
     padding: 2.5rem;
-    height: 420px;
+    grid-column: span 2;
     border: 1px solid rgba(61,53,48,0.08);
   }
 
@@ -658,6 +658,7 @@
     margin: 1.8rem 0 1.4rem;
     position: relative;
     z-index: 1;
+    max-width: 480px;
   }
 
   .services-item {
@@ -689,6 +690,7 @@
     justify-content: space-between;
     position: relative;
     z-index: 1;
+    max-width: 480px;
   }
 
   .services-card-cta {
@@ -876,16 +878,17 @@
 
     <!-- Services Card -->
     <div class="services-card reveal">
-      <svg class="services-card-bg" viewBox="0 0 300 420" xmlns="http://www.w3.org/2000/svg">
-        <rect x="20" y="20" width="260" height="380" rx="1" stroke="#3D3530" stroke-width="1" fill="none"/>
-        <rect x="40" y="40" width="220" height="340" rx="1" stroke="#3D3530" stroke-width="0.5" fill="none"/>
-        <line x1="20" y1="210" x2="280" y2="210" stroke="#3D3530" stroke-width="0.5"/>
-        <circle cx="150" cy="210" r="60" stroke="#3D3530" stroke-width="0.5" fill="none"/>
+      <svg class="services-card-bg" viewBox="0 0 600 420" xmlns="http://www.w3.org/2000/svg">
+        <rect x="20" y="20" width="560" height="380" rx="1" stroke="#3D3530" stroke-width="1" fill="none"/>
+        <rect x="40" y="40" width="520" height="340" rx="1" stroke="#3D3530" stroke-width="0.5" fill="none"/>
+        <line x1="20" y1="210" x2="580" y2="210" stroke="#3D3530" stroke-width="0.5"/>
+        <circle cx="420" cy="210" r="100" stroke="#3D3530" stroke-width="0.5" fill="none"/>
+        <circle cx="420" cy="210" r="60" stroke="#3D3530" stroke-width="0.4" fill="none"/>
       </svg>
 
       <div class="services-card-header">
         <p class="services-card-eyebrow">What I offer</p>
-        <h3 class="services-card-title">Services &<br>deliverables</h3>
+        <h3 class="services-card-title">Services &amp;<br>deliverables</h3>
       </div>
 
       <ul class="services-list">
@@ -903,7 +906,7 @@
         </li>
         <li class="services-item">
           <span class="services-item-dot"></span>
-          <span class="services-item-name">Planting &amp; Furniture Specifications</span>
+          <span class="services-item-name">Planting, Site Furniture &amp; Material Specification</span>
         </li>
         <li class="services-item">
           <span class="services-item-dot"></span>
