@@ -285,6 +285,7 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 2px;
+    align-items: stretch;
   }
 
   .project-card {
@@ -303,7 +304,9 @@
     position: relative;
     overflow: hidden;
   }
-  .project-card:first-child .project-visual { height: 480px; }
+  .project-card:first-child .project-visual { height: 380px; }
+  .project-card:nth-child(2) { align-self: stretch; }
+  .project-card:nth-child(2) .project-visual { height: 100%; }
 
   .project-bg {
     position: absolute; inset: 0;
@@ -414,10 +417,10 @@
     height: 55%;
     background-image: url('Sketch2.png');
     background-size: cover;
-    background-position: center;
-    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.5) 25%, black 55%, transparent 100%);
-    mask-image: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.5) 25%, black 55%, transparent 100%);
-    opacity: 0.38;
+    background-position: center top;
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.5) 20%, black 50%, transparent 100%);
+    mask-image: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.5) 20%, black 50%, transparent 100%);
+    opacity: 0.55;
     z-index: 1;
   }
 
@@ -428,21 +431,35 @@
     height: 55%;
     background-image: url('Sketch3.png');
     background-size: cover;
-    background-position: center;
-    -webkit-mask-image: linear-gradient(to top, transparent 0%, rgba(0,0,0,0.5) 25%, black 55%, transparent 100%);
-    mask-image: linear-gradient(to top, transparent 0%, rgba(0,0,0,0.5) 25%, black 55%, transparent 100%);
-    opacity: 0.38;
+    background-position: center top;
+    -webkit-mask-image: linear-gradient(to top, transparent 0%, rgba(0,0,0,0.5) 20%, black 50%, transparent 100%);
+    mask-image: linear-gradient(to top, transparent 0%, rgba(0,0,0,0.5) 20%, black 50%, transparent 100%);
+    opacity: 0.55;
     z-index: 1;
   }
 
-  /* Green tint wash — sits above sketches, same approach as hero-sketch-tint */
+  /* Green tint wash — transparent overlay so sketches show through */
   .about-bg {
     position: absolute; inset: 0;
-    background:
-      radial-gradient(ellipse at 40% 60%, rgba(92,122,78,0.28) 0%, transparent 65%);
+    background: radial-gradient(ellipse at 40% 60%, rgba(92,122,78,0.22) 0%, transparent 65%);
     z-index: 2;
     pointer-events: none;
   }
+
+  /* Sketch caption labels */
+  .about-sketch-label {
+    position: absolute;
+    left: 1.4rem;
+    font-size: 0.6rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--bark-light);
+    opacity: 0.7;
+    z-index: 4;
+    pointer-events: none;
+  }
+  .about-sketch-label.top { top: 1rem; }
+  .about-sketch-label.bottom { bottom: 50%; margin-bottom: 1rem; }
 
   .about-accent-line {
     position: absolute; top: 3rem; left: -1px;
@@ -769,6 +786,8 @@
     <div class="about-sketch-bottom"></div>
     <div class="about-bg"></div>
     <div class="about-accent-line"></div>
+    <span class="about-sketch-label top">Park Site Plan by hand</span>
+    <span class="about-sketch-label bottom">Planting Plan Concept by hand</span>
   </div>
 
   <div class="about-content reveal">
